@@ -6,9 +6,9 @@ pipeline {
     		}
     }
 
-   // triggers {
+   //triggers {
      //   cron('H(0-0) 1 * * *')
-   // }
+    //}
 
     environment {
 
@@ -42,9 +42,8 @@ pipeline {
 
     stage('Maven Build') {
           steps {
-                sh 'pwd;ls -lrt'
-
-        	  	sh 'mvn clean package111'
+        
+        	  	sh 'mvn clean package'
         	 
             }
         }
@@ -61,4 +60,5 @@ pipeline {
             }
        
     }
+}
 }
