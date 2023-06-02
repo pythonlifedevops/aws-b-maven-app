@@ -3,3 +3,4 @@ VOLUME /tmp
 COPY target/demo*.jar app.jar
 CMD java -jar app.jar
 RUN ls -lrt
+RUN echo hello
