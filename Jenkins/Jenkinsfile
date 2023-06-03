@@ -35,6 +35,7 @@ pipeline {
             steps {
 
             	git branch: appBranch , url: 'https://github.com/pythonlifedevops/aws-b-maven-app.git'
+        
                 //echo 'Hello World'
                 //sh 'hostname'
             }
@@ -50,15 +51,27 @@ pipeline {
 
 
     stage('Docker Build') {
-          steps {
+            steps {
+                withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_PASSWD')]) {
+                {
 
-        	  	sh 'docker build . -t pylifedevops/awstest:latest'
-        	  //	sh 'docker login -u username -p dock_token'
-        	  //	sh 'docker push pylifedevops/awstest:latest'
-        	  	sh 'docker run -d pylifedevops/awstest:latest'
-        	 
-            }
-       
+                    sh 'docker build . -t pylifedevops/awss12:test'
+                    sh 'docker login -u pylifedevops -p ${DOCKER_PASSWD}'
+                    sh 'docker push pylifedevops/awss12:test'
+                }
+
+         }
     }
-}
+
+    stage('Archive and clean workspace') {
+                steps {
+                    
+                    archive 'target/demo*.jar'
+                    //archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+                    cleanWs()
+                }
+
+            }
+        }
+    }
 }
