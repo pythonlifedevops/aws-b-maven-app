@@ -52,10 +52,10 @@ pipeline {
 
     stage('Docker Build') {
             steps {
-                withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_PASSWD')]) {
+                withCredentials([string(credentialsId: 'DOCKER_TOKEN', variable: 'DOCKER_PASSWD')]) 
                 {
-
-                    sh 'docker build . -t pylifedevops/awss12:test'
+                
+                   sh 'docker build . -t pylifedevops/awss12:test'
                     sh 'docker login -u pylifedevops -p ${DOCKER_PASSWD}'
                     sh 'docker push pylifedevops/awss12:test'
                 }
@@ -74,4 +74,3 @@ pipeline {
             }
         }
     }
-}
